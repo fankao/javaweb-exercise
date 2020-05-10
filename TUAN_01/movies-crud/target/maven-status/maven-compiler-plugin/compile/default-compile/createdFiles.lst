@@ -1,0 +1,8 @@
+www\bt\dao\MovieEntityManager.class
+www\bt\test\Testing.class
+www\bt\entities\Cinema.class
+www\bt\servlets\ActionManagementServlet.class
+www\bt\dao\MovieDAOImpl.class
+www\bt\entities\Movie.class
+www\bt\entities\Show.class
+www\bt\dao\MovieDAO.class

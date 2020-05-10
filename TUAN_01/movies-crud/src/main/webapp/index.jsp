@@ -1,1 +1,1 @@
-<% response.sendRedirect("ActionManagementServlet"); %>
+<% response.sendRedirect("list"); %>

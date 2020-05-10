@@ -9,4 +9,5 @@ public interface MovieDAO {
 	List<Movie> getAllMovies();
 	Movie addNewMovie(Movie movie);
 	Movie updateMovie(Movie movie);
+	void deleteMovie(long id);
 }

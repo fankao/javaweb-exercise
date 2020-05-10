@@ -68,4 +68,19 @@ public class MovieDAOImpl implements MovieDAO {
 		return null;
 	}
 
+	@Override
+	public void deleteMovie(long id) {
+		EntityTransaction trans = em.getTransaction();
+		try {
+			trans.begin();
+			em.createNativeQuery("db.movies.deleteOne({'_id':'" + id + "'})").executeUpdate();
+			trans.commit();
+
+		} catch (Exception e) {
+			trans.rollback();
+			e.printStackTrace();
+		}
+
+	}
+
 }

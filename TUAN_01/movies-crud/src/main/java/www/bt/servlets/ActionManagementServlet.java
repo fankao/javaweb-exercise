@@ -1,7 +1,6 @@
 package www.bt.servlets;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,8 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import www.bt.dao.MovieDAO;
 import www.bt.dao.MovieDAOImpl;
 import www.bt.entities.Movie;
-
-@WebServlet(urlPatterns = { "/ActionManagementServlet", "/new", "/edit" })
+@WebServlet(urlPatterns = {"/ActionManagementServlet", "/list", "/new", "/edit", "/delete"})
 public class ActionManagementServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -40,17 +38,20 @@ public class ActionManagementServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
+
 		long id = Long.parseLong(request.getParameter("id"));
 
 		String title = request.getParameter("title");
 
 		int year = Integer.parseInt(request.getParameter("year"));
 
-		String direc = request.getParameter("directors");
+		String direc = request.getParameter("directors").trim();
 
 		List<String> directors = Arrays.asList(direc);
 
-		String ac = request.getParameter("actors");
+		String ac = request.getParameter("actors").trim();
 
 		List<String> actors = Arrays.asList(ac);
 
@@ -76,6 +77,7 @@ public class ActionManagementServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getServletPath();
 		switch (action) {
 		case "/new":
@@ -84,11 +86,27 @@ public class ActionManagementServlet extends HttpServlet {
 		case "/edit":
 			showForm(request, response);
 			break;
-
+		case "/delete":
+			deleteMovie(request, response);
 		default:
 			listAll(request, response);
 			break;
 		}
+	}
+
+	/**
+	 * Xoa movie
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	private void deleteMovie(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		long id = Long.parseLong(request.getParameter("id"));
+		movieDAO.deleteMovie(id);
+		listAll(request, response);
 	}
 
 	/**
@@ -114,7 +132,7 @@ public class ActionManagementServlet extends HttpServlet {
 		// đưa movie vào request
 		request.setAttribute("movie", movie);
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/form-movie.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/form-movie.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -131,7 +149,7 @@ public class ActionManagementServlet extends HttpServlet {
 			throws ServletException, IOException {
 		List<Movie> movies = movieDAO.getAllMovies();
 		request.setAttribute("movies", movies);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/WEB-INF/jsp/list-movies.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("jsp/list-movies.jsp");
 		dispatcher.forward(request, response);
 	}
 
