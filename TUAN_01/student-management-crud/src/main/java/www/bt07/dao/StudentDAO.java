@@ -13,5 +13,5 @@ public interface StudentDAO {
 
 	Student save(Student stu);
 
-	void deleteById(ObjectId id);
+	void deleteById(String id);
 }

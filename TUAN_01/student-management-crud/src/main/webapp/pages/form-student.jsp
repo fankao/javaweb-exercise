@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="vi">
 
@@ -33,19 +36,20 @@
 			</div>
 
 			<div class="col-xs-9" style="padding: 15px; height: 100%;">
-				<form action="/student-management-crud/save" method="POST" class="form-horizontal" role="form">
+				<form action="/student-management-crud/save" method="POST"
+					class="form-horizontal" role="form">
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="maSV">Mã sinh
 							viên:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="maSV" />
+							<input type="text" class="form-control" name="maSV" value="${student.maSV}" />
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="control-label col-sm-2" for="hoVaTen">Họ và
 							tên:</label>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" name="hoVaTen" />
+							<input type="text" class="form-control" name="hoVaTen" value="${student.hoVaTen}" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -53,10 +57,12 @@
 							tính:</label>
 						<div class="col-sm-10">
 							<div class="radio">
-								<label> <input type="radio" name="gioiTinh" value="true">
+								<label> <input type="radio" name="gioiTinh" value="true" ${student.gioiTinh == true ? 'checked' : ''}>
 									Nam
-								</label> <label> <input type="radio" name="gioiTinh" value="false">
-									Nữ
+								</label> 
+								<label> 
+									<input type="radio" name="gioiTinh"
+										value="false" ${student.gioiTinh == false ? 'checked' : ''}/> Nữ
 								</label>
 							</div>
 						</div>
@@ -65,7 +71,7 @@
 						<label class="control-label col-sm-2" for="sdt">Số điện
 							thoại:</label>
 						<div class="col-sm-10">
-							<input type="tel" class="form-control" name="sdt" />
+							<input type="tel" class="form-control" name="sdt" value="${student.soDienThoai}" />
 						</div>
 					</div>
 					<div class="form-group">
@@ -73,7 +79,7 @@
 							chỉ:</label>
 						<div class="col-sm-10">
 							<textarea name="diaChi" class="form-control" rows="3"
-								required="required"></textarea>
+								required="required">${student.diaChi}</textarea>
 						</div>
 					</div>
 

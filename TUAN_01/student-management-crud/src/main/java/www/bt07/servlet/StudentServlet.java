@@ -17,7 +17,7 @@ import www.bt07.entity.Student;
 /**
  * Servlet implementation class StudentServlet
  */
-@WebServlet(urlPatterns = { "/save","/list", "/new", "/edit", "/delete" })
+@WebServlet(urlPatterns = { "/save", "/list", "/new", "/edit", "/delete" })
 public class StudentServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StudentDAO studentDAO;
@@ -39,10 +39,17 @@ public class StudentServlet extends HttpServlet {
 		String action = request.getServletPath();
 		switch (action) {
 		case "/new":
-			showFormForAdd(request, response);
+			showForm(request, response);
 			break;
 		case "/list":
 			showListStudent(request, response);
+			break;
+
+		case "/edit":
+			showForm(request, response);
+			break;
+		case "/delete":
+			deleteStudent(request, response);
 			break;
 
 		default:
@@ -51,9 +58,20 @@ public class StudentServlet extends HttpServlet {
 		}
 	}
 
-	private void showFormForAdd(HttpServletRequest request, HttpServletResponse response)
+	private void deleteStudent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String msv = request.getParameter("maSV");
+		studentDAO.deleteById(msv);
+		response.sendRedirect("list");
+		
+	}
+
+	private void showForm(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/form-student.html");
+		String msv = request.getParameter("maSV");
+		if (msv != null) {
+			request.setAttribute("student", studentDAO.findById(msv));
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("pages/form-student.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -88,7 +106,7 @@ public class StudentServlet extends HttpServlet {
 
 		Student student = new Student(maSV, hoVaTen, gioiTinh, diaChi, soDT);
 		studentDAO.save(student);
-		showListStudent(request, response);
+		response.sendRedirect("list");
 	}
 
 }

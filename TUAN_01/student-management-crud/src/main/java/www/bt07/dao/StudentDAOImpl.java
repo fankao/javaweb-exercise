@@ -50,11 +50,11 @@ public class StudentDAOImpl implements StudentDAO {
 	}
 
 	@Override
-	public void deleteById(ObjectId id) {
+	public void deleteById(String id) {
 		EntityTransaction trans = em.getTransaction();
 		try {
 			trans.begin();
-			em.createNativeQuery("db.students.deleteOne({'_id':'" + id + "')").executeUpdate();
+			em.createNativeQuery("db.students.deleteOne({'_id':'" + id + "'})").executeUpdate();
 			trans.commit();
 		} catch (Exception e) {
 			trans.rollback();

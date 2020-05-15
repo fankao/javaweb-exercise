@@ -19,7 +19,7 @@ import www.entity.Person;
 /**
  * Servlet implementation class PersonServlet
  */
-@WebServlet(urlPatterns = { "/PersonServlet", "/edit", "/delete" })
+@WebServlet(urlPatterns = { "/PersonServlet","/list", "/edit", "/delete" })
 public class PersonServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private PersonDAO personDAO;
@@ -39,12 +39,13 @@ public class PersonServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String action = request.getServletPath();
-		System.out.println(action);
 		switch (action) {
 		case "/edit":
 			showFormEdit(request, response);
+			break;
 		case "/delete":
 			deletePerson(request, response);
+			break;
 		default:
 			showListPerson(request, response);
 			break;
@@ -64,7 +65,7 @@ public class PersonServlet extends HttpServlet {
 		ObjectId id = idStr == "" ? null : new ObjectId(idStr);
 		personDAO.deleteById(id);
 		request.setAttribute("message", "Person deleted successfully");
-		showListPerson(request, response);
+		response.sendRedirect("list");
 
 	}
 
@@ -82,7 +83,9 @@ public class PersonServlet extends HttpServlet {
 		ObjectId id = idStr == "" ? null : new ObjectId(idStr);
 		Person person = personDAO.findById(id);
 		request.setAttribute("person", person);
-		showListPerson(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("edit-person.jsp");
+		dispatcher.forward(request, response);
+		
 
 	}
 
@@ -125,7 +128,7 @@ public class PersonServlet extends HttpServlet {
 		p.setName(name);
 		p.setCountry(country);
 		personDAO.save(p);
-		showListPerson(request, response);
+		response.sendRedirect("list");
 
 	}
 

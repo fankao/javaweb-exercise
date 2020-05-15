@@ -1,4 +1,4 @@
 
 <%
-	response.sendRedirect("PersonServlet");
+	response.sendRedirect("list");
 %>

@@ -10,7 +10,7 @@ public class Student {
 	@Id
 	private String maSV;
 	private String hoVaTen;
-	private boolean gioTinh;
+	private boolean gioiTinh;
 	private String diaChi;
 	private String soDienThoai;
 
@@ -18,11 +18,11 @@ public class Student {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Student(String maSV, String hoVaTen, boolean gioTinh, String diaChi, String soDienThoai) {
+	public Student(String maSV, String hoVaTen, boolean gioiTinh, String diaChi, String soDienThoai) {
 		super();
 		this.maSV = maSV;
 		this.hoVaTen = hoVaTen;
-		this.gioTinh = gioTinh;
+		this.gioiTinh = gioiTinh;
 		this.diaChi = diaChi;
 		this.soDienThoai = soDienThoai;
 	}
@@ -43,12 +43,12 @@ public class Student {
 		this.hoVaTen = hoVaTen;
 	}
 
-	public boolean isGioTinh() {
-		return gioTinh;
+	public boolean isGioiTinh() {
+		return gioiTinh;
 	}
 
-	public void setGioTinh(boolean gioTinh) {
-		this.gioTinh = gioTinh;
+	public void setGioiTinh(boolean gioiTinh) {
+		this.gioiTinh = gioiTinh;
 	}
 
 	public String getDiaChi() {

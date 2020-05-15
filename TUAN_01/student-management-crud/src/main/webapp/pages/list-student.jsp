@@ -42,6 +42,7 @@
 							<th>Họ và tên</th>
 							<th>Giới tính</th>
 							<th>Số điện thoại</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -49,8 +50,12 @@
 							<tr>
 								<td width="50px">${item.maSV}</td>
 								<td>${item.hoVaTen}</td>
-								<td>${item.gioTinh == true?'Nam' : 'Nữ'}</td>
+								<td>${item.gioiTinh == true?'Nam' : 'Nữ'}</td>
 								<td>${item.soDienThoai}</td>
+								<td>
+									<a href="/student-management-crud/edit?maSV=${item.maSV}" class="btn btn-warning">Edit</a>
+									<a href="/student-management-crud/delete?maSV=${item.maSV}" class="btn btn-danger" onclick="return confirm('Bạn có muốn xoá sinh viên này?')">Delete</a>
+								</td>
 							</tr>
 						</c:forEach>
 
