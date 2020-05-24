@@ -6,34 +6,50 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.bson.types.ObjectId;
+
 @Entity
 @Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private ObjectId id;
 	private String firstName;
 	private String lastName;
 	private String email;
 	private String password;
 
+	private String dateOfBirth;
+
+	private boolean gender;
+
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public User(String firstName, String lastName, String email, String password) {
+	public User(String firstName, String lastName, String email, String password, String dateOfBirth, boolean gender) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
 		this.password = password;
+		this.dateOfBirth = dateOfBirth;
+		this.gender = gender;
 	}
 
-	public long getId() {
+	public boolean isGender() {
+		return gender;
+	}
+
+	public void setGender(boolean gender) {
+		this.gender = gender;
+	}
+
+	public ObjectId getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(ObjectId id) {
 		this.id = id;
 	}
 
@@ -67,6 +83,14 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(String dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 }
